@@ -1,0 +1,13 @@
+{
+  "name": "UltraFM",
+  "version": "0.1",
+  "description": "Play radio Ultra.",
+  "browser_action": {
+    "default_icon": "icon.gif",
+    "popup": "popup.html"
+  },
+  "permissions": [
+    "http://api.flickr.com/"
+  ]
+}
+
