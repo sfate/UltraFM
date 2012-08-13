@@ -1,6 +1,17 @@
-This project will be an chrome-extention.
-Which  plays online radio station Ultra with
-showing playing track info and scrobbling it
-lo last.fm.
+# UltraFM (radioultra.ru) player extention
 
-Work just started.
+Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome browser.
+
+## Screenshots
+[image](http://img17.imageshack.us/img17/6451/screenshot1si.png)
+[image](http://img100.imageshack.us/img100/9991/scrennd.png)
+
+## TODO:
+
+* [+] info about connection to stream
+* [+] info about current track
+* [+] scrobble track to last.fm
+* [+] make some redesign
+
+## Version: 0.1 (13 august 2012)
+
