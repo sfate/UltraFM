@@ -5,7 +5,7 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 ## Screenshots
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![image](http://img100.imageshack.us/img100/9991/scrennd.png)
 
-![image](http://img17.imageshack.us/img17/6451/screenshot1si.png) 
+![image](http://img17.imageshack.us/img17/6451/screenshot1si.png)
 ## TODO:
 
 * [+] info about connection to stream
@@ -13,5 +13,5 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 * [+] scrobble track to last.fm
 * [+] make some redesign
 
-## Version: 0.1.1 (13 august 2012)
+## Version: 0.1.2 (13 august 2012)
 
