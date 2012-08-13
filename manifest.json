@@ -11,5 +11,6 @@
       "48": "images/icon_48.png"
    },
    "name": "UltraFM",
+   "manifest_version": 2,
    "version": "0.1"
 }
