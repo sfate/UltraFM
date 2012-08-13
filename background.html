@@ -1,29 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script type="text/javascript">
-		var Player = {
-			counter: 0,
-			intervalId: 0,
-			start: function(){
-				this.intervalId = setInterval(this.animate, 150);
-			},
-			stop: function(){
-				clearInterval(this.intervalId);
-				chrome.browserAction.setBadgeText({text:''});
-			},
-			animate: function(){
-				var animation = ["....:",":..::","..::.",":.:.:","::.:.",":.:..",".:.:.",":.:.:","::.:.","..:::","..:..",":..:.","..:.:","...::",":.::.",".::::","..::.",":.::.",":..:.",".:::."];
-				if(this.counter < 19){
-					this.counter += 1;
-				}
-				else{
-					this.counter = 0;
-				}
-				chrome.browserAction.setBadgeText({text:animation[this.counter]});
-			}
-		}
-	</script>
+	<script src="js/background.js"></script>
 </head>
 <body>
 	<audio controls="" name="media" src="http://94.25.53.133:80/ultra-aac128" id="player"></audio>
