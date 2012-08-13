@@ -1,13 +1,15 @@
 {
-  "name": "UltraFM",
-  "version": "0.1",
-  "description": "Play radio Ultra.",
-  "browser_action": {
-    "default_icon": "icon.gif",
-    "popup": "popup.html"
-  },
-  "permissions": [
-    "http://api.flickr.com/"
-  ]
+   "background_page": "background.html",
+   "browser_action": {
+      "default_icon": "images/icon.png",
+      "popup": "popup.html"
+   },
+   "description": "Listen UltraFM station from browser",
+   "icons": {
+      "128": "images/icon_128.png",
+      "16": "images/icon.png",
+      "48": "images/icon_48.png"
+   },
+   "name": "UltraFM",
+   "version": "0.1"
 }
-
