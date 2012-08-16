@@ -5,7 +5,6 @@ var RadioPlayer = {
 	controlbar: null,
 	counterMin: 0,
 	counterMax: 10,
-	intervalId: 0,
 	streamUrl: 'http://94.25.53.133/ultra-320',
 
 	init: function(){
