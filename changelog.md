@@ -1,0 +1,20 @@
+## 0.1.4 (2012-08-17)
+
+  * bugfix: fixed xhr-request + simplified structure
+
+## 0.1.3 (2012-08-16)
+
+  * feature: show current streaming song
+
+## 0.1.2 (2012-08-13)
+
+  * bugfix: minor fix with popup and background pages
+
+## 0.1.1 (2012-08-13)
+
+  * bugfix: use new manifest format
+
+## 0.1 (2012-08-13)
+
+  * init: first working release
+

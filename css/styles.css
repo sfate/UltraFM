@@ -43,6 +43,7 @@ body {
 
 #statusbar {
   float: left;
-  margin: 6% 0 0 15%;
+  margin: 6% 0 0 0;
+  width: 190px;
 }
 
