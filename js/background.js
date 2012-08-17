@@ -12,6 +12,7 @@ var Player = {
   stop: function() {
     clearInterval(this.intervalId);
     clearInterval(this.songUpdateIntervalId);
+    this.currentTrack = "Artist - Track";
     chrome.browserAction.setBadgeText({text:''});
   },
   animate: function() {

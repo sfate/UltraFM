@@ -1,3 +1,7 @@
+## 0.1.5.2 (2012-08-17)
+
+  * bugfix: show current track after unpased
+
 ## 0.1.5.1 (2012-08-17)
 
   * uifix: more readable track info. thx to [JaySneg](https://github.com/jaysneg)
