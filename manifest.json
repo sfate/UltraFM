@@ -4,7 +4,7 @@
       "default_icon": "images/icon.png",
       "default_popup": "popup.html"
    },
-   "description": "Listen UltraFM station from browser",
+   "description": "Listen UltraFM station from browser. Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome browser.",
    "icons": {
       "128": "images/icon_128.png",
       "16": "images/icon.png",
@@ -16,5 +16,5 @@
       "http://94.25.53.133/",
       "tabs"
     ],
-   "version": "0.1.4"
+   "version": "0.1.5"
 }

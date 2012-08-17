@@ -1,11 +1,12 @@
 var Player = {
   counter: 0,
   intervalId: 0,
-  current_track: "Artist - Track",
+  currentTrack: "Artist - Track",
   songUpdateIntervalId: 0,
 
   start: function() {
     this.intervalId = setInterval(this.animate, 150);
+    this.song();
     this.songUpdateIntervalId = setInterval(this.song, 5000);
   },
   stop: function() {
@@ -40,7 +41,7 @@ var playlist = {
   },
   parse: function (xml) {
     if (xml) {
-      Player.current_track = xml.getElementsByTagName("title")[1].textContent;
+      Player.currentTrack = xml.getElementsByTagName("title")[1].textContent;
     }
   }
 }

@@ -44,8 +44,17 @@ var RadioPlayer = {
     	this.controlbar.className = "play";
       this.statusbar.innerHTML  = "paused" ;
     } else {
+      var trackStubText = "Artist - Track";
       this.controlbar.className = "pause";
-      this.statusbar.innerHTML  =  this.background.Player.current_track;
+      if (this.background.Player.currentTrack == trackStubText) {
+        this.statusbar.innerHTML = "connecting...";
+        setTimeout(function(){
+            // refresh track info in 5 seconds
+            RadioPlayer.setClass();
+        },5000);
+      } else {
+        this.statusbar.innerHTML  =  this.background.Player.currentTrack;
+      }
     }
   }
 };

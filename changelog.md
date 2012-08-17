@@ -1,3 +1,7 @@
+## 0.1.5 (2012-08-17)
+
+  * bugfix: display track info at first play
+
 ## 0.1.4 (2012-08-17)
 
   * bugfix: fixed xhr-request + simplified structure
