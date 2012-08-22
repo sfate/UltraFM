@@ -1,3 +1,8 @@
+## 0.1.6 (2012-08-23)
+
+  * total redesign
+  * show song cover
+
 ## 0.1.5.2 (2012-08-17)
 
   * bugfix: show current track after unpased

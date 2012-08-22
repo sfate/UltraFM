@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="wrapper">
-      <div id="controlbar" class="play"></div>
-      <marquee id="statusbar" behavior="alternate" scrollamount="2">stopped</marquee>
-    </div>
-    <div class="info">
-      <a href="https://github.com/Sfate/UltraFM.git" target="_blank" title="Fork me on GitHub"><img class="beta" src="/images/beta.png" alt="Fork me on GitHub"></img></a>
-    </div>
-    <script type="text/javascript" src="js/popup.js"></script>
+    <ul>
+      <li class="track_cover">
+        <img class="cover" src="/images/bg_case_new.png" alt="" />
+      </li>
+      <li class="track">
+        <h3 class="artist">UltraFM</h3>
+        <p class="title">stopped</p>
+      </li>
+      <li class="buttons">
+        <ul class="controls">
+          <li class="play"><span class="icon">3</span> Play</li>
+          <li class="stop"><span class="icon">4</span> Stop</li>
+          <li class="vk"><a target="_blank"><span class="icon">a</span> vkontakte</li></a>
+          <li class="lastfm"><a target="_blank"><span class="icon">1</span> last.fm</li></a>
+          <li class="github"><a href="https://github.com/Sfate/UltraFM" target="_blank"><span class="icon">0</span> Source</li></a>
+        </ul>
+      </li>
+    </ul>
+    <script type="text/javascript" src="/js/popup.js"></script>
   </body>
 </html>

@@ -2,7 +2,7 @@
    "background": {"page": "background.html"},
    "browser_action": {
       "default_icon": "images/icon.png",
-      "default_popup": "tempo_popup/popup.html"
+      "default_popup": "popup.html"
    },
    "description": "Listen UltraFM station from browser. Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome browser.",
    "icons": {
@@ -14,7 +14,8 @@
    "manifest_version": 2,
    "permissions": [
       "http://94.25.53.133/",
+      "http://ws.audioscrobbler.com/",
       "tabs"
     ],
-   "version": "0.1.5.2"
+   "version": "0.1.6"
 }
