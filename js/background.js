@@ -73,10 +73,10 @@ var lastfmData = {
   apiKey : 'b25b959554ed76058ac220b7b2e0a026',
 
   init: function (trackArray) {
-    this.artist = trackArray[0].replace(/\s/g, '+');
-    this.song   = trackArray[1].replace(/\s/g, '+');
+    this.artist = escape(trackArray[0].replace(/\s/g, '+'));
+    this.song   = escape(trackArray[1].replace(/\s/g, '+'));
 
-    this.link = 'http://last.fm/music/'+escape(this.artist)+'/_/'+escape(this.song);
+    this.link = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
 
     var url     = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key="+this.apiKey+"&artist="+this.artist+"&track="+this.song;
     var request = Player.XHRequest("get", url);
