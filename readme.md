@@ -3,9 +3,9 @@
 Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome browser.
 
 ## Screenshots
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![image](http://img100.imageshack.us/img100/9991/scrennd.png)
+![image](http://img405.imageshack.us/img405/9809/sc0sm.png)
 
-![image](http://img17.imageshack.us/img17/6451/screenshot1si.png)
+![image](http://img84.imageshack.us/img84/7121/sc1sm.png)
 ## TODO:
 
 * [+] scrobble track to last.fm
