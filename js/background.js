@@ -70,12 +70,13 @@ var lastfmData = {
   song   : null,
   link   : null,
   cover  : null,
-  apiKey : 'b25b959554ed76058ac220b7b2e0a026',
+  apiKey : '0b26cafa64819d3b41788dc848ec0926',
 
   init: function (trackArray) {
     this.artist = escape(trackArray[0].replace(/\s/g, '+'));
     this.song   = escape(trackArray[1].replace(/\s/g, '+'));
 
+    this.cover = 'http://cdn.last.fm/flatness/catalogue/noimage/2/default_track_medium.png'
     this.link = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
 
     var url     = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key="+this.apiKey+"&artist="+this.artist+"&track="+this.song;
