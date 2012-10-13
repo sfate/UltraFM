@@ -14,5 +14,4 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 
 See the [CHANGELOG](https://github.com/Sfate/UltraFM/blob/master/changelog.md) file.
 
-## Version: 0.1.6 (2012-08-23)
-
+## Version: 0.1.7 (2012-10-13)

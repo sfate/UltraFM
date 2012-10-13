@@ -1,7 +1,6 @@
-## 0.1.6 (2012-08-23)
+## 0.1.7 (2012-10-13)
 
-  * total redesign
-  * show song cover
+  * fix song cover appearance
 
 ## 0.1.5.2 (2012-08-17)
 
