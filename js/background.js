@@ -32,6 +32,9 @@ var Player = {
     var xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     return xhr;
+  },
+  cover: function () {
+    return lastfmData.cover;
   }
 }
 
@@ -57,8 +60,7 @@ var playlist = {
         links  : {
           vk     : 'http://vk.com/audio?q='+escape(track),
           lastfm : lastfmData.link
-        },
-        cover  : lastfmData.cover
+        }
       };
     } else {
       Player.currentTrack = null;
@@ -66,29 +68,33 @@ var playlist = {
   }
 }
 var lastfmData = {
-  artist : null,
-  song   : null,
-  link   : null,
-  cover  : null,
-  apiKey : '0b26cafa64819d3b41788dc848ec0926',
+  artist  : null,
+  song    : null,
+  link    : null,
+  cover   : null,
+  noCover : 'http://cdn.last.fm/flatness/catalogue/noimage/2/default_track_medium.png',
+  apiKey  : '0b26cafa64819d3b41788dc848ec0926',
 
   init: function (trackArray) {
     this.artist = escape(trackArray[0].replace(/\s/g, '+'));
     this.song   = escape(trackArray[1].replace(/\s/g, '+'));
-
-    this.cover = 'http://cdn.last.fm/flatness/catalogue/noimage/2/default_track_medium.png'
-    this.link = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
+    this.link   = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
 
     var url     = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key="+this.apiKey+"&artist="+this.artist+"&track="+this.song;
     var request = Player.XHRequest("get", url);
     request.onload = function(){
-      lastfmData.parseCoverUrl(request.responseXML);
+      lastfmData.fetchCoverUrl(request.responseXML);
     };
     request.send();
   },
-  parseCoverUrl: function (coverXML) {
+  fetchCoverUrl: function (coverXML) {
     if (coverXML) {
-      this.cover = coverXML.getElementsByTagName("album")[0].getElementsByTagName("image")[0].textContent;
+      albumCovers = coverXML.getElementsByTagName("album")[0];
+      if (albumCovers) {
+        this.cover = albumCovers.getElementsByTagName("image")[0].textContent;
+      } else {
+        this.cover = this.noCover;
+      }
     }
   }
 }

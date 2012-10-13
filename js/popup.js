@@ -66,6 +66,7 @@ var RadioPlayer = {
     if(this.player.paused){
       this.buttons.play.classList.remove('pressed');
       clearInterval(this.refreshInfoId);
+      this.refreshInfo();
     } else {
       this.refreshInfoId = setInterval(function(){RadioPlayer.refreshInfo()},1000);
       this.buttons.play.classList.add('pressed');
@@ -83,7 +84,7 @@ var RadioPlayer = {
       if (currentTrack) {
         this.track.artist.innerText = currentTrack.artist;
         this.track.song.innerText   = currentTrack.song;
-        this.track.cover.style.backgroundImage = 'url('+currentTrack.cover+')'
+        this.track.cover.style.backgroundImage = 'url('+this.background.Player.cover()+')';
         this.buttons.vk.getElementsByTagName('a')[0].setAttribute('href', currentTrack.links.vk);
         this.buttons.lastfm.getElementsByTagName('a')[0].setAttribute('href', currentTrack.links.lastfm);
       }
