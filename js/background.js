@@ -36,7 +36,7 @@ var Player = {
   cover: function () {
     return lastfmData.cover;
   }
-}
+};
 
 var playlist = {
   playlist_url: "http://94.25.53.133/ultra-320.xspf",
@@ -66,7 +66,7 @@ var playlist = {
       Player.currentTrack = null;
     }
   }
-}
+};
 var lastfmData = {
   artist  : null,
   song    : null,
@@ -82,7 +82,7 @@ var lastfmData = {
 
     var url     = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key="+this.apiKey+"&artist="+this.artist+"&track="+this.song;
     var request = Player.XHRequest("get", url);
-    request.onload = function(){
+    request.onload = function() {
       lastfmData.fetchCoverUrl(request.responseXML);
     };
     request.send();
@@ -97,5 +97,4 @@ var lastfmData = {
       }
     }
   }
-}
-
+};

@@ -81,7 +81,7 @@ var RadioPlayer = {
     if(this.player.paused){
       this.track.artist.innerText = "UltraFM";
       this.track.song.innerText   = "stopped";
-      this.track.cover.style.backgroundImage = 'url(/images/icon_128.png)'
+      this.track.cover.style.backgroundImage = 'url(/images/icon_128.png)';
       this.buttons.vk.parentNode.removeAttribute('href');
       this.buttons.lastfm.parentNode.removeAttribute('href');
     } else {
@@ -97,4 +97,3 @@ var RadioPlayer = {
   }
 };
 RadioPlayer.init();
-
