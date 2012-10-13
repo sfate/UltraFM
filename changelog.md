@@ -1,6 +1,14 @@
+## 0.1.7.1 (2012-10-13)
+
+  * uifix: display keypress animation
+
 ## 0.1.7 (2012-10-13)
 
-  * fix song cover appearance
+  * bugfix: song cover appearance
+
+## 0.1.6 (2012-08-??)
+  * uifix: redesign
+  * feature: show current track cover
 
 ## 0.1.5.2 (2012-08-17)
 

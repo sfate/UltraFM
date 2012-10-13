@@ -43,7 +43,7 @@ h3 {
   padding: 0 10px;
 }
 .cover {
-  background: url(/images/bg_cover.png);
+  background: url(/images/icon_128.png);
   background-repeat: no-repeat;
   background-position: 1px 0px;
   background-size: 73px 73px;
@@ -82,10 +82,10 @@ ul.controls li.pressed {
               inset 0 -10px 15px rgba(0, 0, 0, 0.2),
               0 7px 5px rgba(255, 255, 255, 0.2);
 }
-ul.controls li a,
-ul.controls li a:hover,
-ul.controls li a:active,
-ul.controls li a:focus {
+ul.controls a,
+ul.controls a:hover,
+ul.controls a:active,
+ul.controls a:focus {
   color: #666;
   text-decoration: none;
   outline: none;

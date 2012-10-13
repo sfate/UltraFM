@@ -36,13 +36,18 @@ var RadioPlayer = {
       RadioPlayer.changeState('stop');
     };
 
-    this.buttons.vk.onclick     = function () { RadioPlayer.toggleButton(RadioPlayer.buttons.vk); };
-    this.buttons.lastfm.onclick = function () { RadioPlayer.toggleButton(RadioPlayer.buttons.lastfm); };
-    this.buttons.github.onclick = function () { RadioPlayer.toggleButton(RadioPlayer.buttons.github); };
+    this.buttons.vk.onclick     = function () { RadioPlayer.toggleButton(this); return false; };
+    this.buttons.lastfm.onclick = function () { RadioPlayer.toggleButton(this); return false; };
+    this.buttons.github.onclick = function () { RadioPlayer.toggleButton(this); return false; };
   },
   toggleButton: function (self) {
     self.classList.add('pressed');
-    setTimeout(function() { self.classList.remove('pressed'); }, 100);
+    setTimeout(function() { 
+      self.classList.remove('pressed');
+      if (self.parentNode.href) {
+        window.open(self.parentNode.href,'_newtab');
+      }
+    }, 100);
   },
   play: function() {
     this.player.setAttribute('src', this.streamUrl);
@@ -76,17 +81,17 @@ var RadioPlayer = {
     if(this.player.paused){
       this.track.artist.innerText = "UltraFM";
       this.track.song.innerText   = "stopped";
-      this.track.cover.style.backgroundImage = 'url()'
-      this.buttons.vk.getElementsByTagName('a')[0].removeAttribute('href');
-      this.buttons.lastfm.getElementsByTagName('a')[0].removeAttribute('href');
+      this.track.cover.style.backgroundImage = 'url(/images/icon_128.png)'
+      this.buttons.vk.parentNode.removeAttribute('href');
+      this.buttons.lastfm.parentNode.removeAttribute('href');
     } else {
       var currentTrack = this.background.Player.currentTrack;
       if (currentTrack) {
         this.track.artist.innerText = currentTrack.artist;
         this.track.song.innerText   = currentTrack.song;
         this.track.cover.style.backgroundImage = 'url('+this.background.Player.cover()+')';
-        this.buttons.vk.getElementsByTagName('a')[0].setAttribute('href', currentTrack.links.vk);
-        this.buttons.lastfm.getElementsByTagName('a')[0].setAttribute('href', currentTrack.links.lastfm);
+        this.buttons.vk.parentNode.setAttribute('href', currentTrack.links.vk);
+        this.buttons.lastfm.parentNode.setAttribute('href', currentTrack.links.lastfm);
       }
     }
   }

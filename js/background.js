@@ -72,7 +72,7 @@ var lastfmData = {
   song    : null,
   link    : null,
   cover   : null,
-  noCover : 'http://cdn.last.fm/flatness/catalogue/noimage/2/default_track_medium.png',
+  noCover : '/images/loading.gif',
   apiKey  : '0b26cafa64819d3b41788dc848ec0926',
 
   init: function (trackArray) {
