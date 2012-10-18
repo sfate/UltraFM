@@ -37,6 +37,7 @@ h3 {
 .track {
   float: left;
   padding: 16px 0;
+  max-width: 205px;
 }
 .track_cover {
   float: left;
