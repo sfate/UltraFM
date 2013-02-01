@@ -15,15 +15,29 @@ var RadioPlayer = {
   background    : null,
   actions       : null,
   player        : null,
-  streamUrl     : 'http://94.25.53.133/ultra-320',
+  streamUrl     : 'http://94.25.53.133/ultra-128.mp3',
 
   init: function(){
     this.background = chrome.extension.getBackgroundPage();
     this.actions    = chrome.browserAction;
     this.player     = this.background.document.getElementById('player');
 
+    this.initStateInfo();
     this.initButtons();
     this.setClass();
+  },
+  initStateInfo: function() {
+    document.querySelector('.state a').onclick = function() {
+      var info = document.querySelector('.info');
+      if (info.style.display == "block") {
+        info.style.display = "none";
+        document.body.style.height = "";
+        document.body.focus();
+      } else {
+        info.style.display = "block";
+        document.body.style.height = document.body.scrollHeight + "px";
+      }
+    };
   },
   initButtons: function () {
     this.buttons.play.onclick = function(e) {
@@ -50,13 +64,11 @@ var RadioPlayer = {
     }, 100);
   },
   play: function() {
-    this.player.setAttribute('src', this.streamUrl);
     this.player.play();
     this.background.Player.start();
   },
   pause: function() {
     this.player.pause();
-    this.player.setAttribute('src', null);
     this.background.Player.stop();
   },
   changeState: function(action) {

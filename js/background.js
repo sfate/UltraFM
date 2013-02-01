@@ -39,7 +39,7 @@ var Player = {
 };
 
 var playlist = {
-  playlist_url: "http://94.25.53.133/ultra-320.xspf",
+  playlist_url: "http://94.25.53.133/ultra-128.mp3.xspf",
 
   download: function () {
     var request = Player.XHRequest("get", this.playlist_url);

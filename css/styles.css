@@ -15,7 +15,8 @@ body {
   -webkit-user-select: none;
   -webkit-font-smoothing: antialiased;
   width: 325px;
-  height: 130px;
+  min-height:135px; 
+  max-height:200px;
 }
 ul {
   display: inline;
@@ -91,4 +92,25 @@ ul.controls a:focus {
   text-decoration: none;
   outline: none;
 }
-
+.state {
+  font-size: 10px;
+  position: absolute;
+  top: 134px;
+  left: 297px;
+}
+.state a, .state a:active {
+  color: #666;
+  text-decoration: none;
+}
+.state a:hover {
+  text-decoration: underline;
+}
+.info {
+  display: none;
+  position: absolute;
+  top: 150px;
+  left: 0;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  padding-left: 10px;
+}
