@@ -1,3 +1,7 @@
+## 0.1.7.2 (2013-02-01)
+
+  * fcuk: fallback to lower bitrate
+
 ## 0.1.7.1 (2012-10-13)
 
   * uifix: display keypress animation
