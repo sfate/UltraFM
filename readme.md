@@ -8,6 +8,7 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 ![image](http://img84.imageshack.us/img84/7121/sc1sm.png)
 ## TODO:
 
+* [+] volume slider
 * [+] scrobble track to last.fm
 
 ## Changelog
