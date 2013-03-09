@@ -11,37 +11,22 @@ var RadioPlayer = {
     lastfm : document.getElementsByClassName("lastfm")[0],
     github : document.getElementsByClassName("github")[0]
   },
+  connAnimation : document.getElementById('connecting'),
   refreshInfoId : null,
   background    : null,
   actions       : null,
   player        : null,
-  streamUrl     : 'http://94.25.53.133/ultra-128.mp3',
 
   init: function(){
     this.background = chrome.extension.getBackgroundPage();
     this.actions    = chrome.browserAction;
     this.player     = this.background.document.getElementById('player');
 
-    this.initStateInfo();
     this.initButtons();
     this.setClass();
   },
-  initStateInfo: function() {
-    document.querySelector('.state a').onclick = function() {
-      var info = document.querySelector('.info');
-      if (info.style.display == "block") {
-        info.style.display = "none";
-        document.body.style.height = "";
-        document.body.focus();
-      } else {
-        info.style.display = "block";
-        document.body.style.height = document.body.scrollHeight + "px";
-      }
-    };
-  },
   initButtons: function () {
     this.buttons.play.onclick = function(e) {
-    	e.preventDefault();
       RadioPlayer.changeState('play');
     };
 
@@ -64,11 +49,15 @@ var RadioPlayer = {
     }, 100);
   },
   play: function() {
+    this.player.pause();
+    this.player.load();
     this.player.play();
+    this.setClass();
     this.background.Player.start();
   },
   pause: function() {
     this.player.pause();
+    this.setClass();
     this.background.Player.stop();
   },
   changeState: function(action) {
@@ -77,7 +66,6 @@ var RadioPlayer = {
     } else {
       this.pause();
     }
-    this.setClass();
   },
   setClass: function() {
     if(this.player.paused){
@@ -96,7 +84,9 @@ var RadioPlayer = {
       this.track.cover.style.backgroundImage = 'url(/images/icon_128.png)';
       this.buttons.vk.parentNode.removeAttribute('href');
       this.buttons.lastfm.parentNode.removeAttribute('href');
+      this.connAnimation.style.display = 'none';
     } else {
+      this.connAnimation.style.display = (this.player.currentTime ? 'none':'block');
       var currentTrack = this.background.Player.currentTrack;
       if (currentTrack) {
         this.track.artist.innerText = currentTrack.artist;

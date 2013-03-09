@@ -28,9 +28,9 @@ var Player = {
   song: function() {
     playlist.download();
   },
-  XHRequest: function (method, url) {
+  XHRequest: function (method, url, async) {
     var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
+    xhr.open(method, url, async);
     return xhr;
   },
   cover: function () {
@@ -39,18 +39,28 @@ var Player = {
 };
 
 var playlist = {
-  playlist_url: "http://94.25.53.133/ultra-128.mp3.xspf",
+  domain : "http://94.25.53.133/",
+  stream : "ultra-128.mp3.xspf",
 
   download: function () {
-    var request = Player.XHRequest("get", this.playlist_url);
-    request.onload = function(){
-      playlist.parse(request.responseXML);
+    var request = Player.XHRequest("get", this.domain, true);
+    request.onreadystatechange = function(){
+      if (request.readyState===4 && request.status===200) {
+        playlist.parse(request.responseText);
+      }
     };
     request.send();
   },
-  parse: function (xml) {
-    if (xml) {
-      var track      = xml.getElementsByTagName("title")[1].textContent;
+  parse: function (responseText) {
+    if (responseText) {
+      var responseXML = document.createElement('div');
+      responseXML.innerHTML = responseText;
+
+      var stations  = responseXML.querySelectorAll('.newscontent');
+      var ultra     = stations[stations.length-1];
+      var ultraInfo = ultra.querySelectorAll('.streamdata');
+      var track     = ultraInfo[ultraInfo.length-1].innerText;
+
       var trackArray = track.split(" - ");
       lastfmData.init(trackArray);
 

@@ -1,3 +1,11 @@
+## 0.1.8.0 (2013-03-10)
+
+  * bugfix: fixed info grabber about current playing track
+  * bugfix: fixed connection to stream
+  * uifix: fixed state change after play button press
+  * uifix: removed info block about lower bitrate
+  * uifix: added spinner for indication about connection
+
 ## 0.1.7.2 (2013-02-01)
 
   * fcuk: fallback to lower bitrate
