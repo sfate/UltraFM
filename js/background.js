@@ -89,19 +89,23 @@ var lastfmData = {
     this.artist = escape(trackArray[0].replace(/\s/g, '+'));
     this.song   = escape(trackArray[1].replace(/\s/g, '+'));
     this.link   = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
-
-    var url     = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key="+this.apiKey+"&artist="+this.artist+"&track="+this.song;
-    var request = Player.XHRequest("get", url);
+    this.fetchCover('track');
+  },
+  fetchCover: function(coverType) {
+    var url = 'http://ws.audioscrobbler.com/2.0/?method='+coverType+'.getinfo&api_key='+this.apiKey+'&artist='+this.artist+'&track='+this.song;
+    var request = Player.XHRequest("get", url, false);
     request.onload = function() {
-      lastfmData.fetchCoverUrl(request.responseXML);
+      lastfmData.saveCoverUrl(request.responseXML, coverType);
     };
     request.send();
   },
-  fetchCoverUrl: function (coverXML) {
+  saveCoverUrl: function (coverXML, coverType) {
     if (coverXML) {
-      albumCovers = coverXML.getElementsByTagName("album")[0];
-      if (albumCovers) {
-        this.cover = albumCovers.getElementsByTagName("image")[0].textContent;
+      var coverTag = coverXML.getElementsByTagName("image")[1];
+      if (coverTag) {
+        this.cover = coverTag.textContent;  
+      } else if (coverType == 'track') {
+        this.fetchCover('artist');  
       } else {
         this.cover = this.noCover;
       }
