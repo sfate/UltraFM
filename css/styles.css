@@ -17,6 +17,7 @@ body {
   width: 325px;
   min-height:135px; 
   max-height:200px;
+  overflow: hidden;
 }
 ul {
   display: inline;
