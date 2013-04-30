@@ -20,13 +20,10 @@ body {
   overflow: hidden;
 }
 ul {
-  -webkit-padding-start: 0;
+  display: inline;
   border: none;
   list-style: none;
   outline: none;
-}
-li {
-  display: inline;
 }
 h3 {
   font-size: 18px;
