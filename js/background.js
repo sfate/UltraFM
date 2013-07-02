@@ -101,11 +101,11 @@ var lastfmData = {
   },
   saveCoverUrl: function (coverXML, coverType) {
     if (coverXML) {
-      var coverTag = coverXML.getElementsByTagName("image")[1];
+      var coverTag = coverXML.getElementsByTagName("image")[2];
       if (coverTag) {
-        this.cover = coverTag.textContent;  
+        this.cover = coverTag.textContent;
       } else if (coverType == 'track') {
-        this.fetchCover('artist');  
+        this.fetchCover('artist');
       } else {
         this.cover = this.noCover;
       }
