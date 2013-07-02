@@ -13,93 +13,87 @@ var RadioPlayer = {
   },
   connAnimation : document.getElementById('connecting'),
   refreshInfoId : null,
-  background    : null,
-  actions       : null,
-  player        : null,
+  Player        : null,
 
   init: function(){
-    this.background = chrome.extension.getBackgroundPage();
-    this.actions    = chrome.browserAction;
-    this.player     = this.background.document.getElementById('player');
+    RadioPlayer.Player = chrome.extension.getBackgroundPage().Player;
 
-    this.initButtons();
-    this.setClass();
+    RadioPlayer.initButtons();
+    RadioPlayer.setClass();
+    RadioPlayer.refreshInfo();
   },
   initButtons: function () {
-    this.buttons.play.onclick = function(e) {
+    RadioPlayer.buttons.play.onclick = function(e) {
       RadioPlayer.changeState('play');
     };
 
-    this.buttons.stop.onclick = function() {
+    RadioPlayer.buttons.stop.onclick = function() {
       RadioPlayer.toggleButton(this);
       RadioPlayer.changeState('stop');
     };
 
-    this.buttons.vk.onclick     = function () { RadioPlayer.toggleButton(this); return false; };
-    this.buttons.lastfm.onclick = function () { RadioPlayer.toggleButton(this); return false; };
-    this.buttons.github.onclick = function () { RadioPlayer.toggleButton(this); return false; };
+    RadioPlayer.buttons.vk.onclick     = function () { RadioPlayer.toggleButton(this); return false; };
+    RadioPlayer.buttons.lastfm.onclick = function () { RadioPlayer.toggleButton(this); return false; };
+    RadioPlayer.buttons.github.onclick = function () { RadioPlayer.toggleButton(this); return false; };
   },
-  toggleButton: function (self) {
-    self.classList.add('active');
+  toggleButton: function (button) {
+    button.classList.add('active');
     setTimeout(function() {
-      self.classList.remove('active');
-      if (self.href) {
-        window.open(self.href,'_newtab');
+      button.classList.remove('active');
+      if (button.href) {
+        window.open(button.href,'_newtab');
       }
     }, 100);
   },
   play: function() {
-    this.player.pause();
-    this.player.load();
-    this.player.play();
-    this.setClass();
-    this.background.Player.start();
+    RadioPlayer.Player.start();
+    RadioPlayer.setClass();
   },
   pause: function() {
-    this.player.pause();
-    this.setClass();
-    this.background.Player.stop();
+    RadioPlayer.Player.stop();
+    RadioPlayer.setClass();
   },
   changeState: function(action) {
-    if (this.player.paused && action == 'play') {
-      this.play();
+    if (RadioPlayer.Player.paused() && action == 'play') {
+      RadioPlayer.play();
     } else {
-      this.pause();
+      RadioPlayer.pause();
     }
   },
   setClass: function() {
-    if(this.player.paused){
-      this.buttons.play.classList.remove('active');
-      clearInterval(this.refreshInfoId);
-      this.refreshInfo();
+    if (RadioPlayer.Player.paused()) {
+      RadioPlayer.buttons.play.classList.remove('active');
+      clearInterval(RadioPlayer.refreshInfoId);
+      RadioPlayer.refreshInfo();
     } else {
-      this.refreshInfoId = setInterval(function(){RadioPlayer.refreshInfo()},1000);
-      this.buttons.play.classList.add('active');
+      RadioPlayer.refreshInfoId = setInterval(function(){RadioPlayer.refreshInfo()},1000);
+      RadioPlayer.buttons.play.classList.add('active');
     }
   },
   refreshInfo: function () {
-    if(this.player.paused){
-      this.track.artist.innerText = "UltraFM";
-      this.track.song.innerText   = "stopped";
-      for (var i=0;i<this.track.cover.length;i++) {
-        this.track.cover[i].style.backgroundImage = 'url(/images/logo-big.png)';
+    if (RadioPlayer.Player.paused()) {
+      RadioPlayer.track.artist.innerText = "UltraFM";
+      RadioPlayer.track.song.innerText   = "stopped";
+      for (var i=0;i<RadioPlayer.track.cover.length;i++) {
+        RadioPlayer.track.cover[i].style.backgroundImage = 'url(/images/logo-big.png)';
       }
-      this.buttons.vk.removeAttribute('href');
-      this.buttons.lastfm.removeAttribute('href');
-      this.connAnimation.style.display = 'none';
+      RadioPlayer.buttons.vk.removeAttribute('href');
+      RadioPlayer.buttons.lastfm.removeAttribute('href');
+      RadioPlayer.connAnimation.style.display = 'none';
     } else {
-      this.connAnimation.style.display = (this.player.currentTime ? 'none':'block');
-      var currentTrack = this.background.Player.currentTrack;
+      RadioPlayer.connAnimation.style.display = (RadioPlayer.Player.currentTime() ? 'none':'block');
+      var currentTrack = RadioPlayer.Player.currentTrack;
       if (currentTrack) {
-        this.track.artist.innerText = currentTrack.artist;
-        this.track.song.innerText   = currentTrack.song;
-        for (var i=0;i<this.track.cover.length;i++) {
-          this.track.cover[i].style.backgroundImage = 'url('+this.background.Player.cover()+')';
+        RadioPlayer.track.artist.innerText = currentTrack.artist;
+        RadioPlayer.track.song.innerText   = currentTrack.song;
+        for (var i=0;i<RadioPlayer.track.cover.length;i++) {
+          RadioPlayer.track.cover[i].style.backgroundImage = 'url('+RadioPlayer.Player.cover()+')';
         }
-        this.buttons.vk.setAttribute('href', currentTrack.links.vk);
-        this.buttons.lastfm.setAttribute('href', currentTrack.links.lastfm);
+        RadioPlayer.buttons.vk.setAttribute('href', currentTrack.links.vk);
+        RadioPlayer.buttons.lastfm.setAttribute('href', currentTrack.links.lastfm);
       }
     }
   }
 };
-RadioPlayer.init();
+
+setTimeout(RadioPlayer.init, 0);

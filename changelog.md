@@ -1,3 +1,11 @@
+## 0.1.9.1 (2013-07-03)
+
+  * bugfix: force connect to stream
+  * bugfix: cache only current stream
+  * uifix: removed delay when popup opens
+  * uifix: prefetch artist cover
+  * uifix: fix artist cover appearance logic
+
 ## 0.1.9.0 (2013-07-02)
 
   * uifix: redesign
