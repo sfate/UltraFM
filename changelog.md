@@ -1,3 +1,8 @@
+## 0.1.9.0 (2013-07-02)
+
+  * uifix: redesign
+  * uifix: smooth ui
+
 ## 0.1.8.0 (2013-03-10)
 
   * bugfix: fixed info grabber about current playing track
