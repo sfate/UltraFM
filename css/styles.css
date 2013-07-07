@@ -13,10 +13,7 @@ body {
   background: #313131;
   color: #ffffff;
   font: 12px/20px "Helvetica Neue", Arial, sans-serif;
-  -webkit-user-select: none;
   -webkit-font-smoothing: antialiased;
-  width: 220px;
-  height: 100%;
 }
 
 hr {
@@ -84,38 +81,55 @@ hr {
   height: 200px;
   display: block;
   position: absolute;
+  border-radius: 10px;
   z-index: 1;
 }
 
 .player .half {
+  position: relative;
   background: url('/images/logo-big.png');
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all .5s;
   display: inline-block;
   width: 50%;
   height: 100%;
-  -webkit-transform: perspective(500) rotateY(0deg);
-  transform: perspective(500) rotateY(0deg);
-  -webkit-transform-origin: left;
-  transform-origin: left;
+  -webkit-background-size: 200% 100%;
 }
 
 .player .static.half {
-  position: relative;
   float: left;
   z-index: 4;
-  -webkit-background-size: 200% 100%;
-  background-size: 200% 100%;
+  border-radius: 10px 0 0 10px;
 }
 
 .player .flip.half {
-  position: relative;
   z-index: 3;
-  background-size: 200% 100%;
-  -webkit-background-size: 200% 100%;
+  border-radius: 0 10px 10px 0;
   background-position: right;
+  -webkit-transform-origin: left;
   -webkit-transition: all .5s;
+}
+
+@supports (transform: rotateY) and (transform: perspective) {
+  .player:hover .flip.half {
+    -webkit-transform: perspective(500) rotateY(-65deg);
+    z-index: 4;
+  }
+
+  .player:hover .flip.half:after {
+    opacity: 1;
+  }
+
+  .player .half {
+    -webkit-transform: rotateY(0deg);
+  }
+}
+
+@supports not((transform: rotateY) or (transform: perspective)) {
+  .player:hover .flip.half {
+    background-position: left;
+    border-radius: 0;
+    -webkit-transform: translateX(-50px);
+  }
 }
 
 .player .flip.half:after {
@@ -130,18 +144,10 @@ hr {
   transition: all 0.5s;
 }
 
-.player:hover .flip.half:after {
-  opacity: 1;
-}
-
 .player:hover .flip.half {
-  -webkit-transform: perspective(500) rotateY(-65deg);
-  transform: perspective(500) rotateY(-65deg);
   box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
   -webkit-background-size: 200% 100%;
-  background-size: 200% 100%;
   background-position: right;
-  z-index: 4;
 }
 
 .player div {
@@ -160,6 +166,12 @@ hr {
   background: #E5E5E5;
 }
 
+.player .buttons {
+  border-radius: 0 12px 12px 0;
+  overflow: hidden;
+  outline: none;
+}
+
 .player .buttons a {
   display: block;
   width: 100%;
@@ -167,54 +179,13 @@ hr {
   height: 40px;
   padding-top: 30%;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
   line-height: 100%;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.4);
   text-shadow: 1px 1px 0 #FFF;
   background: -webkit-linear-gradient(to right, rgba(224, 224, 224, 0.4) 0%, rgba(135, 135, 135, 0.4) 100%);
-  background: linear-gradient(to right, rgba(224, 224, 224, 0.4) 0%, rgba(135, 135, 135, 0.4) 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid rgba(155, 155, 155, 0.5);
-  outline: none;
-}
-
-.player .buttons a:hover {
-  background: -webkit-linear-gradient(to right, rgba(224, 224, 224, 0.6) 0%, rgba(135, 135, 135, 0.6) 100%);
-  background: linear-gradient(to right, rgba(224, 224, 224, 0.6) 0%, rgba(135, 135, 135, 0.6) 100%);
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.player .buttons a:active,
-.player .buttons a.active {
-  -webkit-box-shadow: inset 0 0 10px #000;
-  box-shadow: inset 0 0 10px #1a1a1a;
-  background: -webkit-linear-gradient(to right, rgba(224, 224, 224, 0.8) 0%, rgba(135, 135, 135, 0.8) 100%);
-  background: linear-gradient(to right, rgba(224, 224, 224, 0.8) 0%, rgba(135, 135, 135, 0.8) 100%);
-  border-top: 1px solid #cccccc;
-  border-bottom: 0;
-}
-
-.player .buttons a:active:first-child,
-.player .buttons a.active:first-child {
-  border: 0;
-}
-
-.player:before {
-  border-radius: 10px;
-}
-
-.player .static.half {
-  border-radius: 10px 0 0 10px;
-}
-
-.player .flip.half {
-  border-radius: 0 10px 10px 0;
-}
-
-.player .buttons {
-  border-radius: 0 12px 12px 0;
-  overflow: hidden;
   outline: none;
 }
 
@@ -224,5 +195,23 @@ hr {
 
 .player .buttons a:last-child {
   border-radius: 0 0 10px 0;
+}
+
+.player .buttons a:hover {
+  background: -webkit-linear-gradient(to right, rgba(224, 224, 224, 0.6) 0%, rgba(135, 135, 135, 0.6) 100%);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.player .buttons a:active,
+.player .buttons a.active {
+  -webkit-box-shadow: inset 0 0 10px #000;
+  background: -webkit-linear-gradient(to right, rgba(224, 224, 224, 0.8) 0%, rgba(135, 135, 135, 0.8) 100%);
+  border-top: 1px solid #cccccc;
+  border-bottom: 0;
+}
+
+.player .buttons a:active:first-child,
+.player .buttons a.active:first-child {
+  border: 0;
 }
 
