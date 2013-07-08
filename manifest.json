@@ -19,6 +19,6 @@
     "http://ws.audioscrobbler.com/",
     "tabs"
   ],
-  // "options_page": "options.html",
+  "options_page": "options.html",
   "version": "0.1.9.1"
 }

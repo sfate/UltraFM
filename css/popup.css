@@ -9,23 +9,6 @@
   font-style: normal;
 }
 
-body {
-  background: #313131;
-  color: #ffffff;
-  font: 12px/20px "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.logo {
-  text-align: center;
-}
-
 .track-info {
   width: 100%;
   max-width: 220px;
@@ -107,29 +90,7 @@ hr {
   background-position: right;
   -webkit-transform-origin: left;
   -webkit-transition: all .5s;
-}
-
-@supports (transform: rotateY) and (transform: perspective) {
-  .player:hover .flip.half {
-    -webkit-transform: perspective(500) rotateY(-65deg);
-    z-index: 4;
-  }
-
-  .player:hover .flip.half:after {
-    opacity: 1;
-  }
-
-  .player .half {
-    -webkit-transform: rotateY(0deg);
-  }
-}
-
-@supports not((transform: rotateY) or (transform: perspective)) {
-  .player:hover .flip.half {
-    background-position: left;
-    border-radius: 0;
-    -webkit-transform: translateX(-50px);
-  }
+  -webkit-transform: perspective(500) rotateY(0deg);
 }
 
 .player .flip.half:after {
@@ -148,6 +109,12 @@ hr {
   box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
   -webkit-background-size: 200% 100%;
   background-position: right;
+  -webkit-transform: perspective(500) rotateY(-65deg);
+  z-index: 4;
+}
+
+.player:hover .flip.half:after {
+  opacity: 1;
 }
 
 .player div {
