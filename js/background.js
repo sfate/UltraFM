@@ -46,11 +46,6 @@ var Player = {
   song: function() {
     playlist.download();
   },
-  XHRequest: function (method, url, async) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, async);
-    return xhr;
-  },
   cover: function () {
     return lastfmData.cover;
   }
@@ -61,13 +56,13 @@ var playlist = {
   stream : "ultra-128.mp3.xspf",
 
   download: function () {
-    var request = Player.XHRequest("get", this.domain, true);
-    request.onreadystatechange = function(){
-      if (request.readyState===4 && request.status===200) {
-        playlist.parse(request.responseText);
+    new XHRequest({
+      url: this.domain,
+      async: true,
+      success: function(response) {
+        playlist.parse(response);
       }
-    };
-    request.send();
+    });
   },
   parse: function (responseText) {
     if (responseText) {
@@ -111,11 +106,13 @@ var lastfmData = {
   },
   fetchCover: function(coverType, size) {
     var url = 'http://ws.audioscrobbler.com/2.0/?method='+coverType+'.getinfo&api_key='+this.apiKey+'&artist='+this.artist+'&track='+this.song;
-    var request = Player.XHRequest("get", url, false);
-    request.onload = function() {
-      lastfmData.saveCoverUrl(request.responseXML, coverType, size);
-    };
-    request.send();
+    new XHRequest({
+      url: url,
+      async: false,
+      success: function(response, responseXML) {
+        lastfmData.saveCoverUrl(responseXML, coverType, size);
+      }
+    });
   },
   saveCoverUrl: function (coverXML, coverType, size) {
     if (coverXML) {
@@ -140,3 +137,8 @@ var lastfmData = {
   }
 };
 
+var lastfm = new LastFM({
+  apiKey    : CONFIG.lastFM.key,
+  apiSecret : CONFIG.lastFM.sig
+});
+Settings.set('config', CONFIG);
