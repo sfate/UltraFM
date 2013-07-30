@@ -8,26 +8,26 @@ var Player = {
     return document.querySelector('audio');
   },
   start: function() {
-    this.connect();
-    this.audioElement().addEventListener('error', Player.connect);
-    this.intervalId = setInterval(this.animate, 150);
-    this.song();
-    this.songUpdateIntervalId = setInterval(this.song, 5000);
+    Player.connect();
+    Player.audioElement().addEventListener('error', Player.connect);
+    Player.intervalId = setInterval(Player.animate, 150);
+    Player.fetchSongName();
+    Player.songUpdateIntervalId = setInterval(Player.fetchSongName, 5000);
   },
   stop: function() {
-    this.audioElement().pause();
-    this.audioElement().removeEventListener('error', Player.reconnect, false);
-    this.audioElement().src = null;
-    clearInterval(this.intervalId);
-    clearInterval(this.songUpdateIntervalId);
-    this.currentTrack = null;
+    Player.audioElement().pause();
+    Player.audioElement().removeEventListener('error', Player.reconnect, false);
+    Player.audioElement().src = null;
+    clearInterval(Player.intervalId);
+    clearInterval(Player.songUpdateIntervalId);
+    Player.currentTrack = null;
     chrome.browserAction.setBadgeText({text:''});
   },
   paused: function() {
-    return this.audioElement().paused;
+    return Player.audioElement().paused;
   },
   currentTime: function() {
-    return this.audioElement().currentTime;
+    return Player.audioElement().currentTime;
   },
   connect: function() {
     Player.audioElement().src = "http://94.25.53.133:80/ultra-128.mp3?nocache="+Math.floor(Math.random() * 100000);
@@ -35,20 +35,20 @@ var Player = {
   },
   animate: function() {
     var animation = ["....:",":..::","..::.",":.:.:","::.:.",":.:..",".:.:.",":.:.:","::.:.","..:::","..:..",":..:.","..:.:","...::",":.::.",".::::","..::.",":.::.",":..:.",".:::."];
-    if(this.counter < 19){
-      this.counter += 1;
+    if(Player.counter < 19){
+      Player.counter += 1;
     }
     else{
-      this.counter = 0;
+      Player.counter = 0;
     }
-    chrome.browserAction.setBadgeText({text:animation[this.counter]});
+    chrome.browserAction.setBadgeText({text:animation[Player.counter]});
   },
-  song: function() {
+  fetchSongName: function() {
     playlist.download();
   },
   cover: function () {
     return lastfmData.cover;
-  }
+  },
 };
 
 var playlist = {
@@ -64,27 +64,30 @@ var playlist = {
       }
     });
   },
-  parse: function (responseText) {
-    if (responseText) {
+  parse: function (response) {
+    if (response) {
       var responseXML = document.createElement('div');
-      responseXML.innerHTML = responseText;
+      responseXML.innerHTML = response;
 
       var stations  = responseXML.querySelectorAll('.newscontent');
       var ultra     = stations[stations.length-1];
       var ultraInfo = ultra.querySelectorAll('.streamdata');
       var track     = ultraInfo[ultraInfo.length-1].innerText;
 
-      var trackArray = track.split(" - ");
-      lastfmData.init(trackArray);
+      if (!Player.currentTrack || track !== Player.currentTrack.origin) {
+        var trackArray = track.split(" - ");
+        lastfmData.init(trackArray);
 
-      Player.currentTrack = {
-        artist : trackArray[0],
-        song   : trackArray[1],
-        links  : {
-          vk     : 'http://vk.com/audio?q='+escape(track),
-          lastfm : lastfmData.link
-        }
-      };
+        Player.currentTrack = {
+          origin : track,
+          artist : trackArray[0],
+          song   : trackArray[1],
+          links  : {
+            vk     : 'http://vk.com/audio?q='+escape(track),
+            lastfm : lastfmData.link
+          }
+        };
+      }
     } else {
       Player.currentTrack = null;
     }
@@ -142,3 +145,8 @@ var lastfm = new LastFM({
   apiSecret : CONFIG.lastFM.sig
 });
 Settings.set('config', CONFIG);
+setTimeout(function(){
+  if (Player.paused()) {
+    Player.stop();
+  }
+},100);
