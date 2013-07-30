@@ -145,6 +145,7 @@ var lastfm = new LastFM({
   apiSecret : CONFIG.lastFM.sig
 });
 Settings.set('config', CONFIG);
+Settings.set('scrobbling', {});
 setTimeout(function(){
   if (Player.paused()) {
     Player.stop();

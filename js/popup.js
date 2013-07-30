@@ -24,6 +24,7 @@ var Radio = {
     Radio.initButtons();
     Radio.setClass();
     Radio.refreshInfo();
+    Radio.initScrobbleLink();
   },
   initButtons: function () {
     Radio.buttons.play.onclick = function(e) {
@@ -86,6 +87,18 @@ var Radio = {
         Radio.buttons.vk.setAttribute('href', currentTrack.links.vk);
         Radio.buttons.lastfm.setAttribute('href', currentTrack.links.lastfm);
       }
+    }
+  },
+  initScrobbleLink: function() {
+    var scrobbling = Settings.get('scrobbling');
+    var lastfmConf = Settings.get('config')['lastFM']
+    var scrobbleLink = document.querySelector('.scrobbling');
+    if (scrobbling['status']) {
+      scrobbleLink.href = scrobbling['profilePath']+scrobbling['profileName'];
+      scrobbleLink.innerText = 'Scrobbled as' + scrobbling['profileName'];
+    } else {
+      scrobbleLink.href = lastfmConf['authUri']+lastfmConf['key'];
+      scrobbleLink.innerText = 'Turn on scrobbling?';
     }
   }
 };
