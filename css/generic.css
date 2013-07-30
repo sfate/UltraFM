@@ -3,6 +3,7 @@ body {
   color: #ffffff;
   font: 12px/20px "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
 }
 
 hr {
