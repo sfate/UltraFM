@@ -33,73 +33,27 @@ function LastFM(options){
 
   /* Internal call (POST, GET). */
   var internalCall = function(params, callbacks, requestMethod){
-    /* Cross-domain POST request (doesn't return any data, always successful). */
-    if(requestMethod == 'POST'){
-      /* Create iframe element to post data. */
-      var html   = document.getElementsByTagName('html')[0];
-      var iframe = document.createElement('iframe');
-      var doc;
+    callbacks['success'] = callbacks['success'] || function(){};
+    callbacks['error']   = callbacks['error']   || function(){};
 
-      /* Set iframe attributes. */
-      iframe.width        = 1;
-      iframe.height       = 1;
-      iframe.style.border = 'none';
-      iframe.onload       = function(){
-        /* Remove iframe element. */
-        //html.removeChild(iframe);
-
-        /* Call user callback. */
-        if(typeof(callbacks.success) != 'undefined'){
-          callbacks.success();
-        }
-      };
-
-      /* Append iframe. */
-      html.appendChild(iframe);
-
-      /* Get iframe document. */
-      if(typeof(iframe.contentWindow) != 'undefined'){
-        doc = iframe.contentWindow.document;
-      }
-      else if(typeof(iframe.contentDocument.document) != 'undefined'){
-        doc = iframe.contentDocument.document.document;
-      }
-      else{
-        doc = iframe.contentDocument.document;
-      }
-
-      /* Open iframe document and write a form. */
-      doc.open();
-      doc.clear();
-      doc.write('<form method="post" action="' + apiUrl + '" id="form">');
-
-      /* Write POST parameters as input fields. */
-      for(var param in params){
-        doc.write('<input type="text" name="' + param + '" value="' + params[param] + '">');
-      }
-
-      /* Write automatic form submission code. */
-      doc.write('</form>');
-      doc.write('<script type="application/x-javascript">');
-      doc.write('document.getElementById("form").submit();');
-      doc.write('</script>');
-
-      /* Close iframe document. */
-      doc.close();
+    var keys   = [];
+    for(var key in params){
+      keys.push(key);
     }
-    else{
-      callbacks['success'] = callbacks['success'] || function(){};
-      callbacks['error'] = callbacks['error'] || function(){};
-      var paramsArray = [];
-      for(var param in params){
-        paramsArray.push(encodeURIComponent(param) + "=" + encodeURIComponent(params[param]));
-      }
-      new XHRequest({
-        url: apiUrl + '?' + paramsArray.join('&').replace(/%20/g, '+'),
-        success: callbacks.success,
-        error: callbacks.error
-      });
+    keys.sort();
+
+    var paramsArray = [];
+    for(var index in keys){
+      var key = keys[index];
+      paramsArray.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
     }
+
+    new XHRequest({
+      method  : requestMethod,
+      url     : apiUrl + '?' + paramsArray.join('&').replace(/%20/g, '+'),
+      success : callbacks.success,
+      error   : callbacks.error
+    });
   };
 
   /* Normal method call. */
@@ -594,7 +548,7 @@ function LastFM(options){
       signedCall('track.removeTag', params, session, callbacks, 'POST');
     },
 
-    scrobble : function(params, callbacks){
+    scrobble : function(params, session, callbacks){
       /* Flatten an array of multiple tracks into an object with "array notation". */
       if(params.constructor.toString().indexOf("Array") != -1){
         var p = {};
@@ -763,6 +717,9 @@ function LastFM(options){
 
       for(var key in params){
         keys.push(key);
+      }
+      if(!!~keys.indexOf('format')) {
+        keys.splice(keys.indexOf('format'),1);
       }
 
       keys.sort();

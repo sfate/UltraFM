@@ -5,3 +5,14 @@ body {
 .options {
   text-align: center;
 }
+
+.scrobble .checkbox, .scrobble label {
+  cursor: pointer;
+}
+
+.renew-hint {
+  font-size: 10px;
+  color: #CCC;
+  padding-left: 70px;
+  display : block;
+}

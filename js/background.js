@@ -2,6 +2,7 @@ var Player = {
   counter: 0,
   intervalId: 0,
   currentTrack: null,
+  previousTrack: '',
   songUpdateIntervalId: 0,
 
   audioElement: function() {
@@ -16,11 +17,14 @@ var Player = {
   },
   stop: function() {
     Player.audioElement().pause();
-    Player.audioElement().removeEventListener('error', Player.reconnect, false);
+    Player.audioElement().removeEventListener('error', Player.connect, false);
     Player.audioElement().src = null;
     clearInterval(Player.intervalId);
     clearInterval(Player.songUpdateIntervalId);
-    Player.currentTrack = null;
+    if (Player.currentTrack) {
+      Player.scrobble([Player.currentTrack.artist, Player.currentTrack.song]);
+      Player.currentTrack = null;
+    }
     chrome.browserAction.setBadgeText({text:''});
   },
   paused: function() {
@@ -46,9 +50,20 @@ var Player = {
   fetchSongName: function() {
     playlist.download();
   },
-  cover: function () {
+  cover: function() {
     return lastfmData.cover;
   },
+  scrobble: function(track) {
+    if (track && Settings.get('scrobbling')['session']['key']) {
+      var ts = Math.floor(new Date().getTime()/1000);
+      lastfm.track.scrobble({artist: track[0], track: track[1], timestamp: ts}, {key: Settings.get('scrobbling')['session']['key']}, {});
+    }
+  },
+  updNowPlaying: function(track) {
+    if (track && Settings.get('scrobbling')['session']['key']) {
+      lastfm.track.updateNowPlaying({artist: track[0], track: track[1]}, {key: Settings.get('scrobbling')['session']['key']}, {});
+    }
+  }
 };
 
 var playlist = {
@@ -75,13 +90,18 @@ var playlist = {
       var track     = ultraInfo[ultraInfo.length-1].innerText;
 
       if (!Player.currentTrack || track !== Player.currentTrack.origin) {
-        var trackArray = track.split(" - ");
-        lastfmData.init(trackArray);
+        Player.previousTrack = (Player.currentTrack ? Player.currentTrack.origin : null);
+        var newTrack = track.split(" - ");
+        var oldTrack = (Player.previousTrack ? Player.previousTrack.split(' - ') : null);
+        lastfmData.init(newTrack);
+
+        Player.scrobble(oldTrack);
+        Player.updNowPlaying(newTrack);
 
         Player.currentTrack = {
           origin : track,
-          artist : trackArray[0],
-          song   : trackArray[1],
+          artist : newTrack[0],
+          song   : newTrack[1],
           links  : {
             vk     : 'http://vk.com/audio?q='+escape(track),
             lastfm : lastfmData.link
@@ -140,12 +160,7 @@ var lastfmData = {
   }
 };
 
-var lastfm = new LastFM({
-  apiKey    : CONFIG.lastFM.key,
-  apiSecret : CONFIG.lastFM.sig
-});
-Settings.set('config', CONFIG);
-Settings.set('scrobbling', {});
+Settings.default();
 setTimeout(function(){
   if (Player.paused()) {
     Player.stop();

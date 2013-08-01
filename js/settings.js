@@ -17,5 +17,10 @@ var Settings = {
     } else {
       window.localStorage[key] = null;
     }
+  },
+  default: function() {
+    Settings.set('scrobbling', {
+      session: {}
+    });
   }
 };

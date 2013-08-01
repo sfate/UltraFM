@@ -4,7 +4,14 @@
   <meta charset="utf-8">
   <link href="/css/generic.css" rel="stylesheet" type="text/css" />
   <link href="/css/options.css" rel="stylesheet" type="text/css" />
-  <script src="/js/lastfm/settings.js"></script>
+  <title>UltraFM - options..</title>
+  <script src="config.dev.json"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/xhr.js"></script>
+  <script src="/js/lastfm/api.md5.js"></script>
+  <script src="/js/lastfm/api.js"></script>
+  <script src="/js/lastfm.obj.js"></script>
+  <script src="/js/options.js"></script>
 </head>
 <body>
   <hr>
@@ -14,7 +21,8 @@
   <hr>
   <div class="options">
     <div class="scrobble">
-      <input type="checkbox"> <span>Enable scrobbling</span>
+      <input class="checkbox" type="checkbox" id="check"> <label for="check">Enable scrobbling</label>
+      <a class="renew-hint">Renew scrobbling token?</a>
     </div>
   </div>
   <hr>

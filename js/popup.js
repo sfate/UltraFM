@@ -91,11 +91,11 @@ var Radio = {
   },
   initScrobbleLink: function() {
     var scrobbling = Settings.get('scrobbling');
-    var lastfmConf = Settings.get('config')['lastFM']
+    var lastfmConf = CONFIG['lastFM'];
     var scrobbleLink = document.querySelector('.scrobbling');
-    if (scrobbling['status']) {
-      scrobbleLink.href = scrobbling['profilePath']+scrobbling['profileName'];
-      scrobbleLink.innerText = 'Scrobbled as' + scrobbling['profileName'];
+    if (scrobbling['enabled']) {
+      scrobbleLink.href = 'http://last.fm/user/'+scrobbling['session']['name'];
+      scrobbleLink.innerText = 'Scrobbled as: ' + scrobbling['session']['name'];
     } else {
       scrobbleLink.href = lastfmConf['authUri']+lastfmConf['key'];
       scrobbleLink.innerText = 'Turn on scrobbling?';
