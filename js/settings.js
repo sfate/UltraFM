@@ -15,12 +15,16 @@ var Settings = {
     if (all) {
       window.localStorage.clear();
     } else {
-      window.localStorage[key] = null;
+      window.localStorage.removeItem(key);
     }
   },
   default: function() {
     Settings.set('scrobbling', {
       session: {}
+    });
+    Settings.set('volume', {
+      muted: false,
+      value: 100
     });
   }
 };

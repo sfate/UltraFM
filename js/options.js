@@ -22,7 +22,7 @@ var Options = {
   },
   storeScrobblingParam: function(key, value) {
     var scrobbling = Settings.get('scrobbling');
-    scrobbling[key] = value
+    scrobbling[key] = value;
     Settings.set('scrobbling', scrobbling, true);
   },
   getURLParameter: function(key) {

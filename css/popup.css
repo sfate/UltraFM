@@ -16,6 +16,7 @@
   background-color: #E5E5E5;
   -webkit-border-radius: 10px;
   overflow: hidden;
+  clear: both;
 }
 
 .artist {
@@ -52,6 +53,44 @@
 .scrobbling {
   color: #eee;
   float: right;
+  text-decoration: none;
+}
+
+.scrobbling:hover {
+  text-decoration: underline;
+}
+
+.volume input[type=range] {
+  -webkit-appearance: none;
+  background-color: #E5E5E5;
+  width: 195px;
+  height:6px;
+  border-radius: 20px;
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  margin: 5px 0 15px 0;
+  float: right;
+}
+
+.volume input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #eee;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid #999;
+}
+
+.volume .icon {
+  float: left;
+  font-size: 20px;
+  color: #e4e4e4;
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .player {

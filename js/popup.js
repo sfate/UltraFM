@@ -22,6 +22,7 @@ var Radio = {
 
     Radio.loadControls();
     Radio.initButtons();
+    Radio.volume.init();
     Radio.setClass();
     Radio.refreshInfo();
     Radio.initScrobbleLink();
@@ -99,6 +100,78 @@ var Radio = {
     } else {
       scrobbleLink.href = lastfmConf['authUri']+lastfmConf['key'];
       scrobbleLink.innerText = 'Turn on scrobbling?';
+    }
+  },
+  volume: {
+    bar  : null,
+    icon : null,
+    states: {
+      min: 4,
+      mid: 5,
+      max: 6
+    },
+    muted : null,
+    old   : {
+      value: null,
+      state: null
+    },
+    init: function() {
+      Radio.volume.bar  = document.querySelector('.volume input');
+      Radio.volume.icon = document.querySelector('.volume .icon');
+      Radio.volume.loadSettings();
+      Radio.volume.setIcon(Radio.volume.bar.value);
+      Radio.volume.muted ? Radio.volume.mute() : '';
+      Radio.volume.bar.onchange = function(e) {
+        var currentVolume = e.target.value;
+        Radio.volume.storeParam('value', currentVolume);
+        Radio.Player.setVolume(currentVolume);
+        Radio.volume.setIcon(currentVolume);
+      }
+      Radio.volume.icon.onclick = function() {
+        Radio.volume.toggleMuted();
+        Radio.volume.storeParam('muted', Radio.volume.muted);
+        Radio.volume.storeParam('old', Radio.volume.old);
+        Radio.Player.setMuted(Radio.volume.muted);
+      }
+    },
+    loadSettings: function() {
+      var settings = Settings.get('volume');
+      Radio.volume.muted = settings['muted'];
+      Radio.volume.bar.value = settings['value'];
+      if (settings['muted']) {
+        Radio.volume.old = settings['old'];
+      }
+    },
+    toggleMuted: function() {
+      if (Radio.volume.muted) {
+        Radio.volume.muted = false;
+        Radio.volume.unmute();
+      } else {
+        Radio.volume.muted = true;
+        Radio.volume.mute();
+      }
+    },
+    setIcon: function(value) {
+      var value = parseInt(value);
+      var states = Radio.volume.states;
+      Radio.volume.icon.innerText = (value > 60 ? states.max : (value > 0 ? states.mid : states.min));
+    },
+    mute: function() {
+      Radio.volume.old.value = Radio.volume.bar.value;
+      Radio.volume.old.state = Radio.volume.icon.innerText;
+      Radio.volume.bar.value = 0;
+      Radio.volume.icon.innerText = Radio.volume.states.min;
+      Radio.volume.bar.classList.add('disabled');
+    },
+    unmute: function() {
+      Radio.volume.bar.value = Radio.volume.old.value;
+      Radio.volume.icon.innerText = Radio.volume.old.state;
+      Radio.volume.bar.classList.remove('disabled');
+    },
+    storeParam: function(key, value) {
+      var settings = Settings.get('volume');
+      settings[key] = value;
+      Settings.set('volume', settings, true);
     }
   }
 };

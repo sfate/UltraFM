@@ -63,6 +63,12 @@ var Player = {
     if (track && Settings.get('scrobbling')['session']['key']) {
       lastfm.track.updateNowPlaying({artist: track[0], track: track[1]}, {key: Settings.get('scrobbling')['session']['key']}, {});
     }
+  },
+  setVolume: function(value) {
+    Player.audioElement().volume = parseInt(value) / 100;
+  },
+  setMuted: function(value) {
+    Player.audioElement().muted = value;
   }
 };
 
