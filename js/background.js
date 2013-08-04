@@ -87,13 +87,7 @@ var playlist = {
   },
   parse: function (response) {
     if (response) {
-      var responseXML = document.createElement('div');
-      responseXML.innerHTML = response;
-
-      var stations  = responseXML.querySelectorAll('.newscontent');
-      var ultra     = stations[stations.length-1];
-      var ultraInfo = ultra.querySelectorAll('.streamdata');
-      var track     = ultraInfo[ultraInfo.length-1].innerText;
+      var track = response.split('streamdata">').pop().split('\</td')[0];
 
       if (!Player.currentTrack || track !== Player.currentTrack.origin) {
         Player.previousTrack = (Player.currentTrack ? Player.currentTrack.origin : null);
@@ -104,13 +98,16 @@ var playlist = {
         Player.scrobble(oldTrack);
         Player.updNowPlaying(newTrack);
 
+        var encode = function(string) {
+          return escape(string.replace(/\s/g, '+'));
+        };
         Player.currentTrack = {
           origin : track,
           artist : newTrack[0],
           song   : newTrack[1],
           links  : {
             vk     : 'http://vk.com/audio?q='+escape(track),
-            lastfm : lastfmData.link
+            lastfm : 'http://last.fm/music/'+encode(newTrack[0])+'/_/'+encode(newTrack[1])
           }
         };
       }
@@ -122,39 +119,31 @@ var playlist = {
 var lastfmData = {
   artist  : null,
   song    : null,
-  link    : null,
   cover   : null,
-  noCover : '/images/loading.gif',
-  apiKey  : '0b26cafa64819d3b41788dc848ec0926',
 
   init: function (trackArray) {
-    this.artist = escape(trackArray[0].replace(/\s/g, '+'));
-    this.song   = escape(trackArray[1].replace(/\s/g, '+'));
-    this.link   = 'http://last.fm/music/'+this.artist+'/_/'+this.song;
+    this.artist = trackArray[0];
+    this.song   = trackArray[1];
     this.fetchCover('track', 2);
   },
-  fetchCover: function(coverType, size) {
-    var url = 'http://ws.audioscrobbler.com/2.0/?method='+coverType+'.getinfo&api_key='+this.apiKey+'&artist='+this.artist+'&track='+this.song;
-    new XHRequest({
-      url: url,
-      async: false,
-      success: function(response, responseXML) {
-        lastfmData.saveCoverUrl(responseXML, coverType, size);
+  fetchCover: function(type, size) {
+    lastfm[type].getInfo({artist: this.artist, track: this.song}, {
+      success: function (response, responseXML) {
+        if (responseXML) {
+          var coverTag = responseXML.getElementsByTagName("image")[size];
+          if (coverTag && coverTag.textContent) {
+            lastfmData.cover = coverTag.textContent;
+          } else if (type == 'track') {
+            lastfmData.fetchCover('artist', 3);
+          } else {
+            lastfmData.cover = '/images/no_cover.png';
+          }
+          lastfmData.preloadCover();
+        } else {
+          lastfmData.cover = '/images/no_cover.png';
+        }
       }
     });
-  },
-  saveCoverUrl: function (coverXML, coverType, size) {
-    if (coverXML) {
-      var coverTag = coverXML.getElementsByTagName("image")[size];
-      if (coverTag && coverTag.textContent) {
-        this.cover = coverTag.textContent;
-      } else if (coverType == 'track') {
-        this.fetchCover('artist', 3);
-      } else {
-        this.cover = this.noCover;
-      }
-      this.preloadCover();
-    }
   },
   preloadCover: function() {
     var imageHolder = document.querySelector('img');
