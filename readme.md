@@ -7,14 +7,9 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 
 ![image](/screenshots/3.png) ![image](/screenshots/4.png)
 
-## TODO:
-
-* add volume slider
-* add scrobble track option to last.fm
-
 ## [Issues](https://github.com/Sfate/UltraFM/issues)
 
 ## [Changelog](/changelog.md)
 
-## Version: 0.1.9.1 (2013-07-03)
+## Version: 0.2.0.0 (2013-08-04)
 

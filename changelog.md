@@ -1,3 +1,9 @@
+## 0.2.0.0 (2013-08-04)
+
+  * feature: scrobble track to lastfm
+  * feature: volume slider
+  * bugfix: code clean-up and app speed-up
+
 ## 0.1.9.1 (2013-07-03)
 
   * bugfix: force connect to stream
