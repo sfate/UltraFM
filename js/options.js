@@ -2,11 +2,16 @@ var Options = {
   storeLfmToken: function() {
     var stored = false;
     var token  = this.getURLParameter('token');
-    if (!!~document.referrer.indexOf('last.fm') && token) {
+    if ( Options.isRefererLfm() && token) {
       Options.storeScrobblingParam('token', token);
       stored = true;
     }
     return stored;
+  },
+  isRefererLfm: function() {
+    var parser = document.createElement('a');
+    parser.href = document.referrer;
+    return !!~(parser.hostname.indexOf('last') && parser.hostname.indexOf('fm'));
   },
   getLfmSession: function() {
     lastfm.auth.getSession({token: Settings.get('scrobbling')['token'], format: 'json'}, {success: function(data){

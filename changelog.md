@@ -1,3 +1,7 @@
+## 0.2.0.1 (2013-08-08)
+
+  * bugfix: fix scrobbling switch-on for all last.fm domains
+
 ## 0.2.0.0 (2013-08-04)
 
   * feature: scrobble track to lastfm
