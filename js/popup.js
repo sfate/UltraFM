@@ -72,8 +72,8 @@ var Radio = {
     if (Radio.Player.paused()) {
       Radio.track.artist.innerText = "UltraFM";
       Radio.track.song.innerText   = "stopped";
-      Radio.track.cover[0].style.backgroundImage = 'url(/images/logo-big.png)';
-      Radio.track.cover[1].style.backgroundImage = 'url(/images/logo-big.png)';
+      Radio.track.cover[0].style.backgroundImage = 'url(/images/logo-big.jpg)';
+      Radio.track.cover[1].style.backgroundImage = 'url(/images/logo-big.jpg)';
       Radio.buttons.vk.removeAttribute('href');
       Radio.buttons.lastfm.removeAttribute('href');
       Radio.connAnimation.style.display = 'none';

@@ -34,7 +34,7 @@ var Player = {
     return Player.audioElement().currentTime;
   },
   connect: function() {
-    Player.audioElement().src = "http://94.25.53.133:80/ultra-128.mp3?nocache="+Math.floor(Math.random() * 100000);
+    Player.audioElement().src = "http://s3.radioheart.ru:8015/nonstop?nocache="+Math.floor(Math.random() * 100000);
     Player.audioElement().play();
   },
   animate: function() {
@@ -48,6 +48,7 @@ var Player = {
     chrome.browserAction.setBadgeText({text:animation[Player.counter]});
   },
   fetchSongName: function() {
+    playlist.parseXml = true;
     playlist.download();
   },
   cover: function() {
@@ -73,21 +74,30 @@ var Player = {
 };
 
 var playlist = {
-  domain : "http://94.25.53.133/",
-  stream : "ultra-128.mp3.xspf",
+  domain : "http://s3.radioheart.ru:8015/",
+  stream : "nonstop.xspf",
+  parseXml : false,
 
-  download: function () {
+  download: function (force) {
+    var destination = function() {
+      return (playlist.parseXml ? playlist.domain+playlist.stream : playlist.domain);
+    };
     new XHRequest({
-      url: this.domain,
+      url: destination(),
       async: true,
-      success: function(response) {
-        playlist.parse(response);
+      success: function(response, responseXML) {
+        playlist.parse(response, responseXML);
       }
     });
   },
-  parse: function (response) {
+  parse: function (response, responseXML) {
     if (response) {
-      var track = response.split('streamdata">').pop().split('\</td')[0];
+      var track;
+      if (playlist.parseXml) {
+        track = responseXML.querySelector('track > title').textContent;
+      } else {
+        track = response.split('streamdata">').pop().split('\</td')[0];
+      }
 
       if (!Player.currentTrack || track !== Player.currentTrack.origin) {
         Player.previousTrack = (Player.currentTrack ? Player.currentTrack.origin : null);

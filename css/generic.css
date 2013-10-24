@@ -15,4 +15,7 @@ hr {
 .logo {
   text-align: center;
 }
+.logo > img {
+  max-width: 220px;
+}
 
