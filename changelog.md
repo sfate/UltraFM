@@ -1,3 +1,7 @@
+## 0.2.0.2 (2013-l1-22)
+
+  * bugfix: fix info fetch from icecast-server
+
 ## 0.2.0.1 (2013-08-08)
 
   * bugfix: fix scrobbling switch-on for all last.fm domains
