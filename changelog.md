@@ -1,3 +1,7 @@
+## 0.2.0.3 (2013-l1-22)
+
+  * bugfix: use proper config for scrobbling
+
 ## 0.2.0.2 (2013-l1-22)
 
   * bugfix: fix info fetch from icecast-server
