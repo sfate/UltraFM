@@ -9,11 +9,13 @@ var stream = function() {
 };
 
 var Player = {
-  counter: 0,
-  intervalId: 0,
-  currentTrack: null,
-  previousTrack: '',
-  songUpdateIntervalId: 0,
+  counter       : 0,
+  currentTrack  : null,
+  previousTrack : '',
+  animateID     : 0,
+  songUpdateID  : 0,
+  playedTime    : 0,
+  playedTimeID  : 0,
 
   audioElement: function() {
     return document.querySelector('audio');
@@ -21,16 +23,21 @@ var Player = {
   start: function() {
     Player.connect();
     Player.audioElement().addEventListener('error', Player.connect);
-    Player.intervalId = setInterval(Player.animate, 150);
+    Player.audioElement().addEventListener('streamfail', Player.connect);
+    Player.animateID = setInterval(Player.animate, 150);
+    Player.songUpdateID = setInterval(Player.fetchSongName, 5000);
+    Player.playedTimeID = setInterval(Player.checkStreamState, 1000);
     Player.fetchSongName();
-    Player.songUpdateIntervalId = setInterval(Player.fetchSongName, 5000);
   },
   stop: function() {
     Player.audioElement().pause();
     Player.audioElement().removeEventListener('error', Player.connect, false);
+    Player.audioElement().removeEventListener('streamfail', Player.connect, false);
     Player.audioElement().src = null;
-    clearInterval(Player.intervalId);
-    clearInterval(Player.songUpdateIntervalId);
+    clearInterval(Player.animateID);
+    clearInterval(Player.songUpdateID);
+    clearInterval(Player.playedTimeID);
+    Player.playedTime = 0;
     if (Player.currentTrack) {
       Player.scrobble([Player.currentTrack.artist, Player.currentTrack.song]);
       Player.currentTrack = null;
@@ -44,9 +51,22 @@ var Player = {
     return Player.audioElement().currentTime;
   },
   connect: function() {
+    Player.stop();
     Player.audioElement().src = stream().url+'?nocache='+Math.floor(Math.random() * 100000);
     Player.audioElement().play();
   },
+  checkStreamState: function() {
+    if (stucked()) {
+      var event = new Event('streamfail');
+      Player.audioElement().dispatchEvent(event);
+      Player.playedTime = 0;
+    } else {
+      Player.playedTime = Player.currentTime();
+    }
+  }
+  stucked: function() {
+    return (Player.currentTime() == 0 || Player.playedTime == Player.currentTime());
+  }
   animate: function() {
     var animation = ["....:",":..::","..::.",":.:.:","::.:.",":.:..",".:.:.",":.:.:","::.:.","..:::","..:..",":..:.","..:.:","...::",":.::.",".::::","..::.",":.::.",":..:.",".:::."];
     if(Player.counter < 19){

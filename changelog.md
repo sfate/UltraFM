@@ -1,3 +1,8 @@
+## 0.2.0.4 (2014-01-28)
+
+  * bugfix: fix last.fm callback on authorization
+  * bugfix: reconnect on stream stuck
+
 ## 0.2.0.3 (2013-l1-22)
 
   * bugfix: use proper config for scrobbling
