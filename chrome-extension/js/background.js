@@ -63,10 +63,10 @@ var Player = {
     } else {
       Player.playedTime = Player.currentTime();
     }
-  }
+  },
   stucked: function() {
     return (Player.currentTime() == 0 || Player.playedTime == Player.currentTime());
-  }
+  },
   animate: function() {
     var animation = ["....:",":..::","..::.",":.:.:","::.:.",":.:..",".:.:.",":.:.:","::.:.","..:::","..:..",":..:.","..:.:","...::",":.::.",".::::","..::.",":.::.",":..:.",".:::."];
     if(Player.counter < 19){
