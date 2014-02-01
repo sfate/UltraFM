@@ -19,6 +19,9 @@ var Options = {
         Options.storeScrobblingParam('session', JSON.parse(data).session);
         Options.storeScrobblingParam('enabled', true);
         window.location.replace('?#_#');
+      } else {
+        Options.storeScrobblingParam('session', {});
+        Options.storeScrobblingParam('enabled', false);
       }
     }});
   },
