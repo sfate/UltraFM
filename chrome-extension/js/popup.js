@@ -51,7 +51,7 @@ var Radio = {
     }, 100);
   },
   changeState: function(action) {
-    if (Radio.Player.paused() && action == 'play') {
+    if (Radio.Player.isPaused() && action == 'play') {
       Radio.Player.start();
     } else {
       Radio.Player.stop();
@@ -59,7 +59,7 @@ var Radio = {
     Radio.setClass();
   },
   setClass: function() {
-    if (Radio.Player.paused()) {
+    if (Radio.Player.isPaused()) {
       Radio.buttons.play.classList.remove('active');
       clearInterval(Radio.refreshInfoId);
       Radio.refreshInfo();
@@ -69,7 +69,7 @@ var Radio = {
     }
   },
   refreshInfo: function () {
-    if (Radio.Player.paused()) {
+    if (Radio.Player.isPaused()) {
       Radio.track.artist.innerText = "UltraFM";
       Radio.track.song.innerText   = "stopped";
       Radio.track.cover[0].style.backgroundImage = 'url(/images/logo-big.png)';
