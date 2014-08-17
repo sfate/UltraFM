@@ -20,7 +20,7 @@
     "tabs"
   ],
   "options_page": "options.html",
-  "version": "0.2.0.4",
+  "version": "0.2.0.5",
   "web_accessible_resources": [
     "options.html"
   ]

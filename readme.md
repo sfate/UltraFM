@@ -13,5 +13,5 @@ Tiny extention that allows you to listen UltraFM(radioultra.ru) from Chrome brow
 
 ## [MIT-license](/license.md)
 
-## Version: 0.2.0.4 (2014-01-28)
+## Version: 0.2.0.5 (2014-08-18)
 

@@ -1,3 +1,10 @@
+## 0.2.0.5 (2014-08-18)
+
+  * uifix: song cover preload
+  * uifix: fetch autocorrected lastfm data for song
+  * bugfix: minor speed improvements
+  * bugfix: consider volume slider value at browser restart
+
 ## 0.2.0.4 (2014-01-28)
 
   * bugfix: fix last.fm callback on authorization
