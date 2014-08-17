@@ -119,8 +119,9 @@ var Radio = {
       Radio.volume.bar  = document.querySelector('.volume input');
       Radio.volume.icon = document.querySelector('.volume .icon');
       Radio.volume.loadSettings();
+      Radio.Player.setVolume(Radio.volume.bar.value);
       Radio.volume.setIcon(Radio.volume.bar.value);
-      Radio.volume.muted ? Radio.volume.mute() : '';
+      Radio.volume.muted && Radio.volume.mute();
       Radio.volume.bar.onchange = function(e) {
         var currentVolume = e.target.value;
         Radio.volume.storeParam('value', currentVolume);
