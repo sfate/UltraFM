@@ -168,7 +168,7 @@ var lastfmData = {
     this.fetchCover('track', 2);
   },
   fetchCover: function(type, size) {
-    lastfm[type].getInfo({artist: this.artist, track: this.song}, {
+    lastfm[type].getInfo({artist: this.artist, track: this.song, autocorrect: 1}, {
       success: function (r, rXML) {
         var cover;
         if (rXML) {
