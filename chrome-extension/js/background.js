@@ -1,5 +1,5 @@
 var stream = (function() {
-  var domain = 'http://94.25.53.133:80';
+  var domain = 'http://nashe2.hostingradio.ru';
   var flow   = '/ultra-128.mp3';
   return {
     domain : domain,
