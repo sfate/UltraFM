@@ -1,3 +1,7 @@
+## 0.2.0.6 (2014-12-27)
+
+  * bugfix: correct stream endpoint (thx to [ruLait](https://github.com/ruLait))
+
 ## 0.2.0.5 (2014-08-18)
 
   * uifix: song cover preload
