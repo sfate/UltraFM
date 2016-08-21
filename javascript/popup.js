@@ -174,9 +174,9 @@ require(
         Radio.volume.bar.classList.remove('disabled');
       },
       storeParam: function(key, value) {
-        var settings = settings.get('volume');
-        settings[key] = value;
-        settings.set('volume', settings, true);
+        var volumeSettings = settings.get('volume');
+        volumeSettings[key] = value;
+        settings.set('volume', volumeSettings, true);
       }
     }
   };
