@@ -1,0 +1,30 @@
+{
+  "name": "ultra_fm",
+  "version": "1.0.0",
+  "description": "Play radio ultra from chrome-extension",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-zip": "^3.2.0",
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.14"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sfate/UltraFM.git"
+  },
+  "keywords": [
+    "radio",
+    "ultra"
+  ],
+  "author": "Alexey Bobyrev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sfate/UltraFM/issues"
+  },
+  "homepage": "https://github.com/sfate/UltraFM#readme"
+}

@@ -1,0 +1,9 @@
+define('ultra.config.dev', function(require) { 'use strict';
+  return {
+    lastFM: {
+      authUri : 'http://www.last.fm/api/auth/?api_key=',
+          key : 'e5294ff0a99aef018a7839b3d1eaf851',
+          sig : 'd77f528cd83a06dc91016d078aee4f79'
+    }
+  }
+});
