@@ -1,24 +1,34 @@
 var stream = (function() {
-  var domain = 'http://nashe2.hostingradio.ru';
-  var flow   = '/ultra-128.mp3';
   return {
-    domain : domain,
-    url    : domain+flow,
-    info   : domain+flow+'.xspf'
+    audio: 'https://main.hostingradio.ru/ultra-256',
+    currentSong: 'http://www.radiobells.com/whoplay_new/23012020/47.json'
   };
 })();
+
+var rand = function() {
+  return Math.floor(Math.random() * 100000);
+};
+
+var capitalize = function(str) {
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+}
 
 var Player = {
   counter       : 0,
   currentTrack  : null,
   previousTrack : '',
-  animateID     : 0,
   songUpdateID  : 0,
   playedTime    : 0,
   playedTimeID  : 0,
   animateDelay  : 150,
   checkDelay    : 1000,
   fetchDelay    : 5000,
+  badge         : {
+    playText: 'on',
+    pauseText: 'off',
+    playBgColor: '#009900',
+    pauseBgColor: '#990000'
+  },
 
   audioElement: function() {
     return document.querySelector('audio');
@@ -27,7 +37,8 @@ var Player = {
     Player.connect();
     Player.audioElement().addEventListener('error', Player.connect);
     Player.audioElement().addEventListener('streamfail', Player.connect);
-    Player.animate();
+    Player.setBadgeBgColor(true);
+    Player.setBadgeText(true);
     Player.fetchSongName();
     setTimeout(Player.checkStreamState, Player.fetchDelay);
   },
@@ -36,7 +47,6 @@ var Player = {
     Player.audioElement().removeEventListener('error', Player.connect, false);
     Player.audioElement().removeEventListener('streamfail', Player.connect, false);
     Player.audioElement().src = '';
-    clearTimeout(Player.animateID);
     clearTimeout(Player.songUpdateID);
     clearTimeout(Player.playedTimeID);
     Player.playedTime = 0;
@@ -44,7 +54,8 @@ var Player = {
       Player.scrobble([Player.currentTrack.artist, Player.currentTrack.song]);
       Player.currentTrack = null;
     }
-    chrome.browserAction.setBadgeText({text:''});
+    Player.setBadgeBgColor(false);
+    Player.setBadgeText(false);
   },
   isPaused: function() {
     return Player.audioElement().paused;
@@ -54,7 +65,7 @@ var Player = {
   },
   connect: function() {
     Player.stop();
-    Player.audioElement().src = stream.url+'?nocache='+Math.floor(Math.random() * 100000);
+    Player.audioElement().src = stream.audio+'?nocache='+rand();
     Player.audioElement().play();
   },
   checkStreamState: function(delay) {
@@ -70,19 +81,15 @@ var Player = {
   isStucked: function() {
     return (Player.currentTime() == 0 || Player.playedTime == Player.currentTime());
   },
-  animate: function() {
-    var animation = ["....:",":..::","..::.",":.:.:","::.:.",":.:..",".:.:.",":.:.:","::.:.","..:::","..:..",":..:.","..:.:","...::",":.::.",".::::","..::.",":.::.",":..:.",".:::."];
-    if(Player.counter < 19){
-      Player.counter += 1;
-    }
-    else{
-      Player.counter = 0;
-    }
-    chrome.browserAction.setBadgeText({text:animation[Player.counter]});
-    Player.animateID = setTimeout(Player.animate, Player.animateDelay);
+  setBadgeBgColor: function(is_onair) {
+    var bgColor = is_onair ? Player.badge.playBgColor : Player.badge.pauseBgColor;
+    chrome.browserAction.setBadgeBackgroundColor({ color: bgColor });
+  },
+  setBadgeText: function(is_onair) {
+    var text = is_onair ? Player.badge.playText : Player.badge.pauseText;
+    chrome.browserAction.setBadgeText({ text: text });
   },
   fetchSongName: function(delay) {
-    playlist.parseXml = true;
     playlist.download();
     Player.songUpdateID = setTimeout(Player.fetchSongName, Player.fetchDelay);
   },
@@ -109,14 +116,12 @@ var Player = {
 };
 
 var playlist = {
-  parseXml : false,
-
   encode: function(string) {
     return escape(string.replace(/\s/g, '+'));
   },
   download: function (force) {
     new XHRequest({
-      url: stream[playlist.parseXml ? 'info':'domain'],
+      url: stream.currentSong+'?t='+rand(),
       async: true,
       success: playlist.setCurrentTrack
     });
@@ -125,12 +130,14 @@ var playlist = {
     r && (Player.currentTrack = playlist.parse(r, rXML));
   },
   parse: function (response, responseXML) {
-    var track;
-    if (playlist.parseXml) {
-      track = responseXML.querySelector('track > title').textContent;
-    } else {
-      track = response.split('streamdata">').pop().split('\</td')[0];
-    }
+    var info, track;
+    // if (playlist.parseXml) {
+    //   track = responseXML.querySelector('track > title').textContent;
+    // } else {
+    //   track = response.split('streamdata">').pop().split('\</td')[0];
+    // }
+    info = JSON.parse(response);
+    track = [capitalize(info.artist), capitalize(info.song)].join(' - ');
 
     if (!Player.currentTrack || track !== Player.currentTrack.origin) {
       Player.previousTrack = (Player.currentTrack ? Player.currentTrack.origin : null);

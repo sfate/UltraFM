@@ -1,3 +1,8 @@
+## 0.2.0.7 (2019-01-27)
+
+  * bugfix: fetch current song and display it's cover
+  * bugfix: upd radio stream
+
 ## 0.2.0.6 (2014-12-27)
 
   * bugfix: correct stream endpoint (thx to [ruLait](https://github.com/ruLait))

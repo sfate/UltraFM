@@ -1,1 +1,7 @@
 *.zip
+.DS_Store
+chrome-extension/.DS_Store
+chrome-extension/js/*.chunk.js
+chrome-extension/js/commons.js
+node_modules/
+yarn-error.log

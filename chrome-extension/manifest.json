@@ -12,15 +12,16 @@
   },
   "name": "UltraFM",
   "manifest_version": 2,
-  "minimum_chrome_version": "26.0",
+  "minimum_chrome_version": "70.0",
   "offline_enabled": false,
   "permissions": [
-    "http://nashe2.hostingradio.ru/",
+    "http://main.hostingradio.ru/",
+    "http://www.radiobells.com/",
     "http://ws.audioscrobbler.com/",
     "tabs"
   ],
   "options_page": "options.html",
-  "version": "0.2.0.6",
+  "version": "0.2.0.7",
   "web_accessible_resources": [
     "options.html"
   ]
