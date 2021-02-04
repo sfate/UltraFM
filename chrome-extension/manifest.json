@@ -17,8 +17,7 @@
   "permissions": [
     "http://main.hostingradio.ru/",
     "http://www.radiobells.com/",
-    "http://ws.audioscrobbler.com/",
-    "tabs"
+    "http://ws.audioscrobbler.com/"
   ],
   "options_page": "options.html",
   "version": "0.2.0.7",
