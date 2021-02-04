@@ -1,4 +1,8 @@
-## 0.2.0.7 (2019-01-27)
+## 0.2.0.8 (2021-02-04)
+
+  * release: remove non-required permission [tabs]
+
+## 0.2.0.7 (2021-01-27)
 
   * bugfix: fetch current song and display it's cover
   * bugfix: upd radio stream
@@ -71,12 +75,13 @@
   * bugfix: song cover appearance
 
 ## 0.1.6 (2012-08-??)
+
   * uifix: redesign
   * feature: show current track cover
 
 ## 0.1.5.2 (2012-08-17)
 
-  * bugfix: show current track after unpased
+  * bugfix: show current track after unpause
 
 ## 0.1.5.1 (2012-08-17)
 

@@ -20,7 +20,7 @@
     "http://ws.audioscrobbler.com/"
   ],
   "options_page": "options.html",
-  "version": "0.2.0.7",
+  "version": "0.2.0.8",
   "web_accessible_resources": [
     "options.html"
   ]
