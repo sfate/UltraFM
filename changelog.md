@@ -1,3 +1,8 @@
+## 0.2.1.0 (2021-02-11)
+
+  * bugfix: upd current song info from official source
+  * uifix: minor ui improvements
+
 ## 0.2.0.8 (2021-02-04)
 
   * release: remove non-required permission [tabs]

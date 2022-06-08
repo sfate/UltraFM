@@ -1,12 +1,14 @@
 var stream = (function() {
   return {
     audio: 'https://main.hostingradio.ru/ultra-256',
-    currentSong: 'http://www.radiobells.com/whoplay_new/23012020/47.json'
+    currentSong: 'https://meta.fmgid.com/stations/ultra/current.json',
+    fallbackAudio: 'https://main.hostingradio.ru:80/ultra-128.mp3',
+    fallbackCurrentSong: 'http://www.radiobells.com/whoplay_new/23012020/47.json'
   };
 })();
 
 var rand = function() {
-  return Math.floor(Math.random() * 100000);
+  return +new Date;
 };
 
 var capitalize = function(str) {
@@ -65,7 +67,7 @@ var Player = {
   },
   connect: function() {
     Player.stop();
-    Player.audioElement().src = stream.audio+'?nocache='+rand();
+    Player.audioElement().src = stream.audio+'?t='+rand();
     Player.audioElement().play();
   },
   checkStreamState: function(delay) {
@@ -129,13 +131,36 @@ var playlist = {
   setCurrentTrack: function(r, rXML) {
     r && (Player.currentTrack = playlist.parse(r, rXML));
   },
-  parse: function (response, responseXML) {
+  parse: function (response) {
+    var info = JSON.parse(response);
+    var artist = info.artist;
+    var song = info.title;
+    var track = [artist, song].join(' - ');
+
+    if (!Player.currentTrack || track !== Player.currentTrack.origin) {
+      Player.previousTrack = (Player.currentTrack ? Player.currentTrack.origin : null);
+      var newTrack = [artist, song];
+      var oldTrack = (Player.previousTrack ? [Player.previousTrack.artist, Player.previousTrack.song] : null);
+      lastfmData.init(newTrack);
+
+      Player.scrobble(oldTrack);
+      Player.updNowPlaying(newTrack);
+
+      return {
+        origin : track,
+        artist : artist,
+        song   : song,
+        links  : {
+          vk     : 'http://vk.com/audio?q='+escape(track),
+          lastfm : 'https://last.fm/music/'+playlist.encode(artist)+'/_/'+playlist.encode(song)
+        }
+      };
+    } else {
+      return Player.currentTrack;
+    }
+  },
+  parseFallback: function (response, responseXML) {
     var info, track;
-    // if (playlist.parseXml) {
-    //   track = responseXML.querySelector('track > title').textContent;
-    // } else {
-    //   track = response.split('streamdata">').pop().split('\</td')[0];
-    // }
     info = JSON.parse(response);
     track = [capitalize(info.artist), capitalize(info.song)].join(' - ');
 
@@ -153,8 +178,8 @@ var playlist = {
         artist : newTrack[0],
         song   : newTrack[1],
         links  : {
-          vk     : 'http://vk.com/audio?q='+escape(track),
-          lastfm : 'http://last.fm/music/'+playlist.encode(newTrack[0])+'/_/'+playlist.encode(newTrack[1])
+          vk     : 'https://vk.com/audio?q='+escape(track),
+          lastfm : 'https://last.fm/music/'+playlist.encode(newTrack[0])+'/_/'+playlist.encode(newTrack[1])
         }
       };
     } else {
