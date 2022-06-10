@@ -12,7 +12,7 @@
   },
   "name": "UltraFM",
   "manifest_version": 2,
-  "minimum_chrome_version": "70.0",
+  "minimum_chrome_version": "100.0",
   "offline_enabled": false,
   "permissions": [
     "http://main.hostingradio.ru/",
@@ -21,7 +21,7 @@
     "https://meta.fmgid.com/"
   ],
   "options_page": "options.html",
-  "version": "0.2.1.0",
+  "version": "0.2.1.2",
   "web_accessible_resources": [
     "options.html"
   ]

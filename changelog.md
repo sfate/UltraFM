@@ -1,3 +1,9 @@
+## 0.2.1.2 (2022-06-10)
+
+  * bugfix: cover load issues
+  * bugfix: stream connection issues
+  * uifix: replace vk with spotify
+
 ## 0.2.1.0 (2021-02-11)
 
   * bugfix: upd current song info from official source
