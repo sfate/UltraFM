@@ -151,8 +151,8 @@ var playlist = {
         artist : artist,
         song   : song,
         links  : {
-          vk     : 'http://vk.com/audio?q='+escape(track),
-          lastfm : 'https://last.fm/music/'+playlist.encode(artist)+'/_/'+playlist.encode(song)
+          spotify : 'http://open.spotify.com/search/'+escape(track),
+          lastfm  : 'https://last.fm/music/'+playlist.encode(artist)+'/_/'+playlist.encode(song)
         }
       };
     } else {
@@ -178,8 +178,8 @@ var playlist = {
         artist : newTrack[0],
         song   : newTrack[1],
         links  : {
-          vk     : 'https://vk.com/audio?q='+escape(track),
-          lastfm : 'https://last.fm/music/'+playlist.encode(newTrack[0])+'/_/'+playlist.encode(newTrack[1])
+          spotify : 'http://open.spotify.com/search/'+escape(track),
+          lastfm  : 'https://last.fm/music/'+playlist.encode(newTrack[0])+'/_/'+playlist.encode(newTrack[1])
         }
       };
     } else {

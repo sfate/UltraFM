@@ -9,11 +9,11 @@ var Radio = {
       cover  : document.getElementsByClassName("half")
     };
     Radio.buttons = {
-      play   : document.getElementsByClassName("play")[0],
-      stop   : document.getElementsByClassName("stop")[0],
-      vk     : document.getElementsByClassName("vk")[0],
-      lastfm : document.getElementsByClassName("lastfm")[0],
-      github : document.getElementsByClassName("github")[0]
+      play    : document.getElementsByClassName("play")[0],
+      stop    : document.getElementsByClassName("stop")[0],
+      spotify : document.getElementsByClassName("spotify")[0],
+      lastfm  : document.getElementsByClassName("lastfm")[0],
+      github  : document.getElementsByClassName("github")[0]
     };
     Radio.connAnimation = document.getElementById('connecting');
   },
@@ -37,9 +37,9 @@ var Radio = {
       Radio.changeState('stop');
     };
 
-    Radio.buttons.vk.onclick     = function () { Radio.toggleButton(this); return false; };
-    Radio.buttons.lastfm.onclick = function () { Radio.toggleButton(this); return false; };
-    Radio.buttons.github.onclick = function () { Radio.toggleButton(this); return false; };
+    Radio.buttons.spotify.onclick = function () { Radio.toggleButton(this); return false; };
+    Radio.buttons.lastfm.onclick  = function () { Radio.toggleButton(this); return false; };
+    Radio.buttons.github.onclick  = function () { Radio.toggleButton(this); return false; };
   },
   toggleButton: function (button) {
     button.classList.add('active');
@@ -74,7 +74,7 @@ var Radio = {
       Radio.track.song.innerText   = "stopped";
       Radio.track.cover[0].style.backgroundImage = 'url(/images/logo-big.png)';
       Radio.track.cover[1].style.backgroundImage = 'url(/images/logo-big.png)';
-      Radio.buttons.vk.removeAttribute('href');
+      Radio.buttons.spotify.removeAttribute('href');
       Radio.buttons.lastfm.removeAttribute('href');
       Radio.connAnimation.style.display = 'none';
     } else {
@@ -85,7 +85,7 @@ var Radio = {
         Radio.track.song.innerText   = currentTrack.song;
         Radio.track.cover[0].style.backgroundImage = 'url('+Radio.Player.cover()+')';
         Radio.track.cover[1].style.backgroundImage = 'url('+Radio.Player.cover()+')';
-        Radio.buttons.vk.setAttribute('href', currentTrack.links.vk);
+        Radio.buttons.spotify.setAttribute('href', currentTrack.links.spotify);
         Radio.buttons.lastfm.setAttribute('href', currentTrack.links.lastfm);
       }
     }
@@ -106,9 +106,9 @@ var Radio = {
     bar  : null,
     icon : null,
     states: {
-      min: 4,
-      mid: 5,
-      max: 6
+      min: "\ue800",
+      mid: "\ue801",
+      max: "\ue802"
     },
     muted : null,
     old   : {
