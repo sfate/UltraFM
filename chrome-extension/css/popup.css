@@ -232,3 +232,18 @@
   border: 0;
 }
 
+.support {
+  width: 100%;
+  text-align: center;
+}
+
+.support a {
+  color: #e2e51f;
+  background: #0d0def;
+  font-size: 20px;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  border-radius: 5px;
+}

@@ -3,6 +3,7 @@
   * bugfix: cover load issues
   * bugfix: stream connection issues
   * uifix: replace vk with spotify
+  * uifix: upd badge colors
 
 ## 0.2.1.0 (2021-02-11)
 

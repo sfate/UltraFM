@@ -28,8 +28,8 @@ var Player = {
   badge         : {
     playText: 'on',
     pauseText: 'off',
-    playBgColor: '#009900',
-    pauseBgColor: '#990000'
+    playBgColor: '#669545',
+    pauseBgColor: '#A74D4F'
   },
 
   audioElement: function() {
